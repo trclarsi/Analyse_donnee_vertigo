@@ -1,24 +1,28 @@
-# Rapport Statistique : Analyse des Données de VertiGo
+# Rapport Statistique Complet : Analyse des Données de VertiGo
 
 ## Introduction
 
-Dans un contexte de concurrence accrue et de changement des comportements des consommateurs, VertiGo, une entreprise spécialisée dans les voyages insolites, a entrepris une étude statistique approfondie pour mieux comprendre les préférences de ses clients et optimiser ses stratégies de marketing. Cette recherche vise à analyser les données des clients, évaluer l'impact des campagnes marketing, et identifier les facteurs clés influençant les décisions d'achat. Les résultats obtenus permettront de mieux aligner les offres de l'entreprise sur les attentes des clients, contribuant ainsi à une amélioration de la performance commerciale de VertiGo. Les objectifs principaux de cette étude sont :
+Dans un contexte de concurrence accrue, VertiGo a entrepris une étude statistique pour mieux comprendre les préférences de ses clients et optimiser ses stratégies marketing. Cette recherche vise à analyser les données des clients, évaluer l'impact des campagnes marketing, et identifier les facteurs clés influençant les décisions d'achat.
 
-*   Identifier les préférences de voyage les plus populaires parmi les clients;
-*   Évaluer l'efficacité des différentes campagnes marketing sur les ventes;
-*   Analyser des tendances d'achat en fonction de critères démographiques comme l'âge et le revenu des clients.
+**Objectifs :**
+
+*   Identifier les préférences de voyage (destinations, types, saisons).
+*   Évaluer l'efficacité des campagnes marketing.
+*   Analyser les tendances d'achat en fonction de critères démographiques.
 
 ## Méthodologie de l'étude
 
-Pour cette étude, nous avons utilisé les données clients collectées par VertiGo à partir de 2023. Les données sont disponibles dans deux bases de données distinctes. La première inclut des informations sur le profil des clients (âge, genre), le type de voyage réservé, les destinations choisies, etc. La seconde base de données inclut des informations liées à l'entreprise comme le nombre de clients, les revenus de ventes, les dépenses publicitaires et le nombre des réservations.
+Deux sources de données de 2023 ont été utilisées : une base de données client (profil, type de voyage, destination, etc.) et une base de données entreprise (revenus, dépenses publicitaires, etc.).
 
-Ces données ont été nettoyées pour supprimer les doublons, traiter les outliers et imputer les valeurs manquantes en utilisant la médiane pour les données numériques et le mode pour les données catégorielles.
+Le nettoyage des données a inclus la suppression des doublons, le traitement des outliers et l'imputation des valeurs manquantes (médiane pour le numérique, mode pour le catégoriel).
 
-Plusieurs tests statistiques ont été menés pour répondre aux questions de recherche, notamment les tests de Pearson, Spearman, Fisher, Chi-2, T-test et ANOVA.
+Les tests statistiques suivants ont été menés pour répondre aux questions de recherche.
 
 ## Analyses et Résultats
 
-### Le test de Pearson
+### 1. Analyse Quantitative
+
+#### Test de Pearson : Dépenses Publicitaires vs. Nombre de Réservations
 
 **Objectif :** Vérifier si l'augmentation des dépenses marketing est associée à une augmentation des réservations.
 
@@ -37,9 +41,29 @@ plt.show()
 *   **Coefficient de corrélation de Pearson (r) :** 0,926
 *   **Valeur p :** 0,0
 
-Le coefficient de corrélation de 0,926 indique une **forte corrélation positive** entre les dépenses publicitaires et le nombre de réservations. La valeur p de 0,0 (inférieure à 0,05) confirme que cette corrélation est **statistiquement significative**.
+**Interprétation :** Le coefficient indique une **forte corrélation positive** et statistiquement significative. L'augmentation des dépenses publicitaires est fortement associée à une augmentation du nombre de réservations.
 
-### Le test de Spearman
+---
+
+#### Test de Pearson : Revenu des Ventes vs. Nombre de Clients
+
+**Objectif :** Confirmer la relation entre le nombre de clients et le revenu généré.
+
+```python
+sns.regplot(x=data_entreprise['Revenu_des_Ventes'], y=data_entreprise['Nombre_de_Clients'], line_kws=dict(color="r"))
+plt.title('Revenu des ventes vs. Nombre de clients')
+plt.show()
+```
+
+**Résultats :**
+*   **Coefficient de corrélation de Pearson (r) :** 0,980
+*   **Valeur p :** 0,0
+
+**Interprétation :** La corrélation est **extrêmement forte et positive**. Cela confirme logiquement que plus le nombre de clients augmente, plus le revenu des ventes est élevé.
+
+---
+
+#### Test de Spearman : Durée de Voyage vs. Prix Total
 
 **Objectif :** Identifier si des séjours plus longs sont associés à des dépenses plus élevées.
 
@@ -54,11 +78,12 @@ plt.show()
 *   **Coefficient de corrélation de Spearman (ρ) :** 0,994
 *   **Valeur p :** 0,0
 
-Le coefficient de 0,994 indique une **très forte corrélation positive** entre la durée et le prix total des voyages. La corrélation est **statistiquement significative**, suggérant que la durée est un déterminant majeur du prix.
+**Interprétation :** La corrélation est **très forte et positive**. La durée du voyage est un déterminant majeur du prix total.
+### 2. Analyse Qualitative
 
-### Le test de Fisher
+#### Test de Fisher : Genre vs. Type de Voyage
 
-**Objectif :** Comprendre si le genre des clients influence leur choix de type de voyage.
+**Objectif :** Comprendre si le genre des clients influence leur choix de type de voyage (aventure vs. culturel).
 
 ```python
 data_clients_fisher = data_clients[data_clients['genre'] != 'Autre']
@@ -72,9 +97,11 @@ plt.show()
 *   **Odds ratio :** 1,108
 *   **p-valeur :** 0,726
 
-Aucune association statistiquement significative n'a été observée. L'odds ratio proche de 1 et la valeur p élevée (0,726) confirment qu'il n'y a pas de différence de préférences entre hommes et femmes pour les voyages d'aventure ou culturels.
+**Interprétation :** Aucune association statistiquement significative n'a été observée. Le genre n'influence pas la préférence pour un type de voyage plutôt qu'un autre.
 
-### Le test du Chi-2
+---
+
+#### Test du Chi-2 : Saison de Voyage vs. Type de Voyage
 
 **Objectif :** Déterminer si les choix de voyage varient en fonction des saisons.
 
@@ -89,11 +116,33 @@ plt.show()
 *   **Statistique Chi-2 :** 5,361
 *   **Valeur p :** 0,498
 
-Le test n'a révélé aucun lien de dépendance significatif. La valeur p de 0,498 indique que la saison de voyage est indépendante du type de voyage préféré.
+**Interprétation :** Aucun lien de dépendance significatif. Le type de voyage préféré ne dépend pas de la saison.
 
-### Le test T
+---
 
-**Objectif :** Déterminer si la satisfaction des clients varie de manière significative entre l'été et l'hiver.
+#### Test du Chi-2 : Saison de Voyage vs. Destination
+
+**Objectif :** Analyser si le choix de la destination dépend de la saison.
+
+```python
+contingency_table_dest = pd.crosstab(data_clients['saison de voyage'], data_clients['destination'])
+plt.figure(figsize=(12, 8))
+sns.heatmap(contingency_table_dest, annot=True, fmt='d')
+plt.title('Heatmap Saison vs. Destination')
+plt.show()
+```
+
+**Résultats :**
+*   **Statistique Chi-2 :** 34,06
+*   **Valeur p :** 0,416
+
+**Interprétation :** La valeur p étant très supérieure à 0,05, il n'y a pas de relation statistiquement significative entre la saison et le choix de la destination.
+
+---
+
+#### Test T : Évaluation des séjours Été vs. Hiver
+
+**Objectif :** Déterminer si la satisfaction client varie entre l'été et l'hiver.
 
 ```python
 sns.boxplot(x='saison de voyage', y='évaluation sur 5', data=data_clients)
@@ -102,14 +151,16 @@ plt.show()
 ```
 
 **Résultats :**
-*   **Statistique de test T :** -1,277
+*   **Statistique T :** -1,277
 *   **Valeur p :** 0,202
 
-La différence d'évaluation entre l'été et l'hiver n'est pas statistiquement significative, comme l'indique la valeur p de 0,202.
+**Interprétation :** La différence d'évaluation entre l'été et l'hiver n'est pas statistiquement significative.
 
-### Le test d'ANOVA
+---
 
-**Objectif :** Identifier si un type de voyage (aventure, détente, culturel) génère plus de satisfaction que les autres.
+#### Test d'ANOVA : Satisfaction vs. Type de Voyage
+
+**Objectif :** Identifier si un type de voyage génère plus de satisfaction.
 
 ```python
 sns.boxplot(x='type de voyage', y='évaluation sur 5', data=data_clients)
@@ -118,27 +169,47 @@ plt.show()
 ```
 
 **Résultats :**
-*   **Statistique de test F :** 0,703
+*   **Statistique F :** 0,703
 *   **Valeur p :** 0,495
 
-Aucune différence significative de satisfaction n'a été observée entre les types de voyages. La valeur p élevée (0,495) le confirme.
+**Interprétation :** Aucune différence significative de satisfaction n'a été observée entre les types de voyages.
+
+---
+
+#### Test d'ANOVA : Âge des Clients vs. Type de Voyage
+
+**Objectif :** Déterminer si l'âge moyen des clients diffère selon le type de voyage choisi.
+
+```python
+sns.boxplot(x='type de voyage', y='âge', data=data_clients)
+plt.title('Distribution de l\'âge par type de voyage')
+plt.show()
+```
+
+**Résultats :**
+*   **Statistique F :** 1,428
+*   **Valeur p :** 0,240
+
+**Interprétation :** Il n'y a pas de différence statistiquement significative dans l'âge moyen des clients entre les différents types de voyage.
 
 ## Limites de l'étude
 
-Les données de cette étude sont limitées à l'année 2023, ce qui ne permet pas d'analyser les tendances à long terme. De plus, des facteurs externes (conjoncture économique, événements spéciaux) non inclus dans les données pourraient influencer les résultats. Les conclusions doivent donc être interprétées avec prudence.
+Les données sont limitées à l'année 2023 et ne permettent pas d'analyser les tendances à long terme. De plus, des facteurs externes (conjoncture économique, etc.) non capturés pourraient influencer les résultats. Ces conclusions doivent donc être interprétées avec prudence.
 
 ## Conclusion
 
 ### Récapitulatif des découvertes
 
-1.  **Dépenses publicitaires et réservations :** Une forte corrélation positive (r = 0.926) suggère que le marketing est efficace.
-2.  **Durée et coût des séjours :** Une très forte corrélation (ρ = 0.994) montre que les séjours plus longs sont plus chers.
-3.  **Préférences par genre :** Aucune différence significative n'a été trouvée entre les genres.
-4.  **Préférences par saison :** Le type de voyage préféré ne varie pas significativement avec les saisons.
+1.  **Marketing Efficace :** L'investissement publicitaire est fortement corrélé aux réservations (r=0.926).
+2.  **Logique Commerciale Confirmée :** Le revenu est très fortement corrélé au nombre de clients (r=0.980).
+3.  **Prix et Durée :** Le coût d'un voyage est quasi parfaitement corrélé à sa durée (ρ=0.994).
+4.  **Stabilité des Préférences :** Les préférences de voyage ne varient pas de manière significative ni selon le **genre**, ni selon la **saison**.
+5.  **Satisfaction Uniforme :** Le niveau de satisfaction des clients est constant, quel que soit le type de voyage ou la saison.
+6.  **Clientèle d'âge homogène :** L'âge moyen des clients ne diffère pas significativement d'un type de voyage à l'autre.
 
 ### Recommandations pratiques
 
 1.  **Augmenter les investissements en publicité :** La forte corrélation justifie une augmentation du budget marketing pour stimuler les réservations.
-2.  **Développer des offres basées sur la durée :** Créer des forfaits pour séjours prolongés afin d'optimiser les revenus.
-3.  **Uniformiser les offres saisonnières :** Simplifier le marketing avec des offres cohérentes tout au long de l'année, puisque les préférences ne varient pas selon la saison.
-4.  **Poursuivre la recherche :** Mener des études futures avec des données sur plusieurs années pour affiner les stratégies.
+2.  **Développer des offres basées sur la durée :** Créer des forfaits pour séjours prolongés afin d'optimiser les revenus, puisque la durée est le principal facteur de coût.
+3.  **Uniformiser les offres :** Simplifier le marketing avec des offres cohérentes tout au long de l'année et pour tous les genres, puisque les préférences ne varient pas sur ces critères.
+4.  **Poursuivre la recherche :** Mener des études futures avec des données sur plusieurs années pour affiner les stratégies et détecter des tendances à long terme.
