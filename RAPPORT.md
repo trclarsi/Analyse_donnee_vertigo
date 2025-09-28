@@ -26,16 +26,7 @@ Les tests statistiques suivants ont été menés pour répondre aux questions de
 
 **Objectif :** Vérifier si l'augmentation des dépenses marketing est associée à une augmentation des réservations.
 
-```python
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-data_entreprise = pd.read_csv('Données+entreprise+VertiGo+nettoyées.csv')
-sns.regplot(x=data_entreprise['Depenses_Publicitaires'], y=data_entreprise['Nombre_de_Reservations'], line_kws=dict(color="r"))
-plt.title('Dépenses publicitaires vs. Nombre de réservations')
-plt.show()
-```
+<img width="571" height="433" alt="image" src="https://github.com/user-attachments/assets/e8a8a225-3036-4201-817d-0a4ceb25d451" />
 
 **Résultats :**
 *   **Coefficient de corrélation de Pearson (r) :** 0,926
@@ -49,11 +40,8 @@ plt.show()
 
 **Objectif :** Confirmer la relation entre le nombre de clients et le revenu généré.
 
-```python
-sns.regplot(x=data_entreprise['Revenu_des_Ventes'], y=data_entreprise['Nombre_de_Clients'], line_kws=dict(color="r"))
-plt.title('Revenu des ventes vs. Nombre de clients')
-plt.show()
-```
+<img width="563" height="433" alt="image" src="https://github.com/user-attachments/assets/c9388347-ae32-43c8-af53-11683b3b0419" />
+
 
 **Résultats :**
 *   **Coefficient de corrélation de Pearson (r) :** 0,980
@@ -67,12 +55,7 @@ plt.show()
 
 **Objectif :** Identifier si des séjours plus longs sont associés à des dépenses plus élevées.
 
-```python
-data_clients = pd.read_csv('vertigo_nettoyées.csv')
-sns.regplot(data=data_clients, x='durée de voyage (en jours)', y='prix total', line_kws=dict(color="r"))
-plt.title('Durée de voyage vs. Prix total')
-plt.show()
-```
+<img width="589" height="433" alt="image" src="https://github.com/user-attachments/assets/d9288360-65dd-4640-bfcb-be8b425fc1cd" />
 
 **Résultats :**
 *   **Coefficient de corrélation de Spearman (ρ) :** 0,994
@@ -85,13 +68,7 @@ plt.show()
 
 **Objectif :** Comprendre si le genre des clients influence leur choix de type de voyage (aventure vs. culturel).
 
-```python
-data_clients_fisher = data_clients[data_clients['genre'] != 'Autre']
-contingency_table_fm = pd.crosstab(data_clients_fisher['genre'], data_clients_fisher['type de voyage'])
-sns.heatmap(contingency_table_fm, annot=True, fmt='d')
-plt.title('Heatmap Genre vs. Type de voyage')
-plt.show()
-```
+<img width="530" height="432" alt="image" src="https://github.com/user-attachments/assets/67f2ae89-1126-46d3-b92a-a8acf6bc83e4" />
 
 **Résultats :**
 *   **Odds ratio :** 1,108
@@ -105,12 +82,11 @@ plt.show()
 
 **Objectif :** Déterminer si les choix de voyage varient en fonction des saisons.
 
-```python
-contingency_table_saison = pd.crosstab(data_clients['saison de voyage'], data_clients['type de voyage'])
-sns.heatmap(contingency_table_saison, annot=True, fmt='d')
-plt.title('Heatmap Saison vs. Type de voyage')
-plt.show()
-```
+<img width="571" height="432" alt="image" src="https://github.com/user-attachments/assets/4f5f77b4-93ad-4204-81a3-397b46cb4aea" />
+<img width="539" height="432" alt="image" src="https://github.com/user-attachments/assets/98c2c61b-c647-4c5e-97f7-98e429f08b53" />
+<img width="592" height="593" alt="image" src="https://github.com/user-attachments/assets/7f90f1c6-9358-4661-a1d0-30f619aa8f4f" />
+
+
 
 **Résultats :**
 *   **Statistique Chi-2 :** 5,361
@@ -124,13 +100,12 @@ plt.show()
 
 **Objectif :** Analyser si le choix de la destination dépend de la saison.
 
-```python
-contingency_table_dest = pd.crosstab(data_clients['saison de voyage'], data_clients['destination'])
-plt.figure(figsize=(12, 8))
-sns.heatmap(contingency_table_dest, annot=True, fmt='d')
-plt.title('Heatmap Saison vs. Destination')
-plt.show()
-```
+<img width="562" height="432" alt="image" src="https://github.com/user-attachments/assets/ab1e3b69-8c83-43ec-9b91-1cb7834b4020" />
+<img width="530" height="492" alt="image" src="https://github.com/user-attachments/assets/04df9a07-fe68-43ad-aa53-0c5a396aea1f" />
+<img width="592" height="593" alt="image" src="https://github.com/user-attachments/assets/524a0d3b-48b7-4bd6-b083-94eb6e7e2198" />
+
+
+
 
 **Résultats :**
 *   **Statistique Chi-2 :** 34,06
@@ -144,11 +119,7 @@ plt.show()
 
 **Objectif :** Déterminer si la satisfaction client varie entre l'été et l'hiver.
 
-```python
-sns.boxplot(x='saison de voyage', y='évaluation sur 5', data=data_clients)
-plt.title('Évaluations des séjours par saison')
-plt.show()
-```
+<img width="567" height="432" alt="image" src="https://github.com/user-attachments/assets/87ef9932-9db4-42cf-be75-76951efb5ee3" />
 
 **Résultats :**
 *   **Statistique T :** -1,277
@@ -162,11 +133,8 @@ plt.show()
 
 **Objectif :** Identifier si un type de voyage génère plus de satisfaction.
 
-```python
-sns.boxplot(x='type de voyage', y='évaluation sur 5', data=data_clients)
-plt.title('Niveaux de satisfaction par type de voyage')
-plt.show()
-```
+<img width="567" height="432" alt="image" src="https://github.com/user-attachments/assets/14f11566-71f7-4811-a671-a099f1959dac" />
+
 
 **Résultats :**
 *   **Statistique F :** 0,703
@@ -180,11 +148,8 @@ plt.show()
 
 **Objectif :** Déterminer si l'âge moyen des clients diffère selon le type de voyage choisi.
 
-```python
-sns.boxplot(x='type de voyage', y='âge', data=data_clients)
-plt.title('Distribution de l\'âge par type de voyage')
-plt.show()
-```
+<img width="563" height="432" alt="image" src="https://github.com/user-attachments/assets/0c01fad9-bb32-4ab9-a364-2bc6c4ebbd3f" />
+
 
 **Résultats :**
 *   **Statistique F :** 1,428
